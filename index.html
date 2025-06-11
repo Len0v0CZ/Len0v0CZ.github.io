@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BUZERANTech s.r.o.</title>
+  <link rel="stylesheet" type="text/css" href="styles.css">
+  <link rel="icon" href="ikona.png">
+</head>
+<body>
+  <header>
+    <img src="ikona.png" alt="Logo BUZERANTech" class="logo" />
+    <div class="header-text">
+      <h1>BUZERANTech s.r.o.</h1>
+      <p>Bezpečnostní Unifikovaný Záznamový Evidenční Rámec Analýzy Networking Technologií.</p>
+    </div>
+  </header>
+
+  <nav>
+    <a href="#produkty">Produkty</a>
+    <a href="#proc-my">Proč my</a>
+    <a href="#recenze">Recenze</a>
+    <a href="#kontakt">Kontakt</a>
+  </nav>
+
+  <!-- GIF fixed position vpravo -->
+  <div class="miku-gif">
+    <div class="tenor-gif-embed" data-postid="6779547327698113792" data-share-method="host" data-aspect-ratio="1.76596" data-width="100%">
+      <a href="https://tenor.com/view/miku-hatsune-miku-vocaloid-deco27-deco-27-gif-6779547327698113792">Miku Hatsune Miku GIF</a>
+      from <a href="https://tenor.com/search/miku-gifs">Miku GIFs</a>
+    </div>
+  </div>
+  <div class="buy-gif">
+    <div class="tenor-gif-embed" data-postid="25006426" data-share-method="host" data-aspect-ratio="0.559375" data-width="100%">
+      <a href="https://tenor.com/view/buy-buy-now-buy-it-now-gif-25006426">Buy Buy Now GIF</a>
+      from <a href="https://tenor.com/search/buy-gifs">Buy GIFs</a>
+    </div>
+  </div>
+  <div class="container">
+    <section class="product" id="produkty">
+      <h2>Naše produkty</h2>
+      <ul>
+        <li><strong>Bureš™</strong> – Chytrý agent pro tichý sběr dat</li>
+        <li><strong>ŠMIROHub™</strong> – Dashboard pro sledování v reálném čase</li>
+        <li><strong>PRUDIL Analytics™</strong> – AI analýza podezřelého chování</li>
+        <li><strong>ČUMLite™</strong> – Odlehčená verze pro domácí použití</li>
+      </ul>
+    </section>
+
+    <section class="product" id="proc-my">
+      <h2>Proč právě my?</h2>
+      <ul>
+        <li>✅ Beze stopy</li>
+        <li>✅ GDPR-ready*</li>
+        <li>✅ Linux i windows kompatibilní</li>
+        <li>✅ 101% transparence – my vidíme vše, ty nic</li>
+      </ul>
+      <p><em>*některé výjimky platí, viz mikropísmo dole</em></p>
+    </section>
+
+    <section class="testimonial" id="recenze">
+      <h2>Co o nás říkají zákazníci?</h2>
+      <p>„Díky BUZERANTechu jsem konečně zjistil, kdo mi na školní síti pořád streamuje YouTube v 4K!"<br><strong>– Václav Cetl, správce IT ZŠ Laštůvkova</strong></p>
+      <p>„Můj přítel si myslí, že BUZERANTech je antivirus. A tak to i zůstane."<br><strong>– Petr, osobní uživatel</strong></p>
+    </section>
+
+    <section class="contact" id="kontakt">
+      <h2>Kontaktujte nás</h2>
+      <form id="kontakt-form" action="#" method="post">
+        <label for="email">Váš e-mail:</label>
+        <input type="email" id="email" name="user_email" required />
+
+        <label for="zprava">Zpráva:</label>
+        <textarea id="zprava" name="zprava" rows="5" required></textarea>
+
+        <button type="submit">Odeslat</button>
+      </form>
+    </section>
+  </div>
+
+  <footer>
+    &copy; 2025 BUZERANTech s.r.o. – Všechna práva podivně vyhrazena.<br>
+    Tento software může být nelegální v některých státech. Používání na vlastní riziko.
+  </footer>
+  
+  <!-- EmailJS knihovna -->
+  <script type="text/javascript" src="https://cdn.emailjs.com/dist/email.min.js"></script>
+  <!-- Tenor GIF script -->
+  <script type="text/javascript" async src="https://tenor.com/embed.js"></script>
+  
+  <script type="text/javascript">
+    // Inicializace EmailJS s tvým Public Key (User ID)
+    (function(){
+      emailjs.init("XIvjCVcC7hQUGHAMt"); // nahraď svým veřejným klíčem z EmailJS
+    })();
+
+    // Spuštění po odeslání formuláře
+    window.addEventListener('DOMContentLoaded', function() {
+      const form = document.getElementById("kontakt-form");
+
+      form.addEventListener("submit", function(e) {
+        e.preventDefault();
+
+        emailjs.sendForm("service_06p42v7", "templata_odpovez_", this)
+          .then(function(response) {
+            console.log("Email byl úspěšně odeslán!", response.status, response.text);
+            alert("Díky! Email byl odeslán.");
+            form.reset(); // Vymaže formulář po odeslání
+          }, function(error) {
+            console.error("Nastala chyba při odesílání:", error);
+            alert("Oops! Něco se pokazilo. Zkus to znovu.");
+          });
+      });
+    });
+  </script>
+
+</body>
+</html>

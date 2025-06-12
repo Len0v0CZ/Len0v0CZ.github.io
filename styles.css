@@ -46,7 +46,7 @@ body {
       font-weight: bold;
     }
     .container {
-      max-width: 1000px;
+      max-width: 50%;
       margin: 2rem auto;
       padding: 0 1rem;
     }
@@ -98,9 +98,9 @@ body {
     
     .miku-gif {
       position: fixed;
-      top: 200px; /* Pod navigací */
+      top: 30%; /* Pod navigací */
       right: 20px; /* Vpravo od okraje stránky */
-      width: 380px;
+      width: 20%;
       height: auto;
       border-radius: 8px;
       overflow: hidden;
@@ -115,9 +115,9 @@ body {
     }
     .buy-gif {
       position: fixed;
-      top: 200px; /* Pod navigací */
+      top: 25%; /* Pod navigací */
       left: 20px; /* Vlevo od okraje stránky */
-      width: 380px;
+      width: 20%;
       height: auto;
       border-radius: 8px;
       overflow: hidden;

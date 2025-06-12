@@ -102,7 +102,7 @@ body {
       right: 20px; /* Vpravo od okraje stránky */
       width: 20%;
       height: auto;
-      border-radius: 8px;
+      border-radius: 2%;
       overflow: hidden;
       box-shadow: 0 0 15px rgba(0, 255, 153, 0.3);
       z-index: 1000;
@@ -113,13 +113,31 @@ body {
       height: 100%;
       border: none;
     }
+
+    .hack-gif {
+      position: fixed;
+      top: 57%; /* Pod navigací */
+      right: 20px; /* Vpravo od okraje stránky */
+      width: 20%;
+      height: auto;
+      border-radius: 2%;
+      overflow: hidden;
+      box-shadow: 0 0 15px rgba(0, 255, 153, 0.3);
+      z-index: 1000;
+    }
+    
+    .hack-gif iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
     .buy-gif {
       position: fixed;
       top: 25%; /* Pod navigací */
       left: 20px; /* Vlevo od okraje stránky */
       width: 20%;
       height: auto;
-      border-radius: 8px;
+      border-radius: 2%;
       overflow: hidden;
       box-shadow: 0 0 15px rgba(0, 255, 153, 0.3);
       z-index: 1000;

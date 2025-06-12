@@ -98,7 +98,7 @@ body {
     
     .miku-gif {
       position: fixed;
-      top: 30%; /* Pod navigací */
+      top: 25%; /* Pod navigací */
       right: 20px; /* Vpravo od okraje stránky */
       width: 20%;
       height: auto;
@@ -116,7 +116,7 @@ body {
 
     .hack-gif {
       position: fixed;
-      top: 57%; /* Pod navigací */
+      top: 53%; /* Pod navigací */
       right: 20px; /* Vpravo od okraje stránky */
       width: 20%;
       height: auto;

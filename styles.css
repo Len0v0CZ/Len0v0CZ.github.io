@@ -133,7 +133,7 @@ body {
     }
     .buy-gif {
       position: fixed;
-      top: 25%; /* Pod navigací */
+      top: 23%; /* Pod navigací */
       left: 20px; /* Vlevo od okraje stránky */
       width: 20%;
       height: auto;

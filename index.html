@@ -8,7 +8,7 @@
   <link rel="icon" href="ikona.png">
 </head>
 <body>
-  <header>
+  <header id="header">
     <img src="ikona.png" alt="Logo BUZERANTech" class="logo" />
     <div class="header-text">
       <h1>BUZERANTech s.r.o.</h1>
@@ -16,7 +16,7 @@
     </div>
   </header>
 
-  <nav>
+  <nav id="nav">
     <a href="#produkty">Produkty</a>
     <a href="#proc-my">Proč my</a>
     <a href="#recenze">Recenze</a>
@@ -25,19 +25,19 @@
   </nav>
 
   <!-- GIF fixed position vpravo -->
-  <div class="miku-gif">
+  <div class="miku-gif" id="miku-gif">
     <div class="tenor-gif-embed" data-postid="6779547327698113792" data-share-method="host" data-aspect-ratio="1.76596" data-width="100%">
       <a href="https://tenor.com/view/miku-hatsune-miku-vocaloid-deco27-deco-27-gif-6779547327698113792">Miku Hatsune Miku GIF</a>
       from <a href="https://tenor.com/search/miku-gifs">Miku GIFs</a>
     </div>
   </div>
-  <div class="buy-gif">
+  <div class="buy-gif" id="buy-gif">
     <div class="tenor-gif-embed" data-postid="25006426" data-share-method="host" data-aspect-ratio="0.559375" data-width="100%">
       <a href="https://tenor.com/view/buy-buy-now-buy-it-now-gif-25006426">Buy Buy Now GIF</a>
       from <a href="https://tenor.com/search/buy-gifs">Buy GIFs</a>
     </div>
   </div>
-  <div class="hack-gif">
+  <div class="hack-gif" id="hack-gif">
     <div class="tenor-gif-embed" data-postid="3585939294345148790" data-share-method="host" data-aspect-ratio="1" data-width="100%">
       <a href="https://tenor.com/view/gladgers-hacker-gers-guardians-of-galaxy-gladgers-hacker-man-gers-gif-3585939294345148790">Gladgers Hacker Gers Guardians Of Galaxy Sticker</a>
       from <a href="https://tenor.com/search/gladgers+hacker+gers-stickers">Gladgers Hacker Gers Stickers</a>
@@ -122,6 +122,36 @@
             console.error("Nastala chyba při odesílání:", error);
             alert("Oops! Něco se pokazilo. Zkus to znovu.");
           });
+      });
+
+      // Scroll efekty pro pohyblivou hlavičku
+      window.addEventListener('scroll', function() {
+        const scrollY = window.scrollY;
+        const header = document.getElementById('header');
+        const nav = document.getElementById('nav');
+        const mikuGif = document.getElementById('miku-gif');
+        const buyGif = document.getElementById('buy-gif');
+        const hackGif = document.getElementById('hack-gif');
+        
+        // Animace hlavičky při scrollování
+        if (scrollY > 50) {
+          header.classList.add('scrolled');
+          nav.classList.add('scrolled');
+        } else {
+          header.classList.remove('scrolled');
+          nav.classList.remove('scrolled');
+        }
+        
+        // Parallax efekt pro GIFy
+        if (scrollY > 100) {
+          mikuGif.classList.add('scrolled');
+          buyGif.classList.add('scrolled');
+          hackGif.classList.add('scrolled');
+        } else {
+          mikuGif.classList.remove('scrolled');
+          buyGif.classList.remove('scrolled');
+          hackGif.classList.remove('scrolled');
+        }
       });
     });
   </script>

@@ -103,6 +103,33 @@ body {
     h1, h2 {
       color: #27dee7;
     }
+    .glitch-btn {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background-color: #0e6f0e;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            font-family: 'Courier New', monospace;
+            transition: all 0.3s ease;
+            margin: 0.5rem;
+            position: relative;
+        }
+        
+        .glitch-btn:hover {
+            animation: glitch 0.3s;
+            box-shadow: 0 0 20px #ff0080;
+        }
+        
+        @keyframes glitch {
+            0% { transform: translate(0); }
+            20% { transform: translate(-2px, 2px); }
+            40% { transform: translate(-2px, -2px); }
+            60% { transform: translate(2px, 2px); }
+            80% { transform: translate(2px, -2px); }
+            100% { transform: translate(0); }
+        }
     .product, .testimonial, .contact {
       background-color: rgba(0, 0, 0, 0.75);
       font-family: 'Courier New', monospace;

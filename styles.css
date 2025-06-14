@@ -20,7 +20,7 @@
       transition: transform 0.3s ease;
     }
     header {
-      background-color: #222;
+      background: url('matrix.gif') repeat center center fixed;
       color: #fff;
       padding: 1rem 2rem;
       display: flex; 
@@ -129,7 +129,11 @@
       margin: 200px auto 2rem auto; 
       padding: 0 1rem;
     }
-    h1, h2 {
+    
+    h1 {
+    color: #e19a17;
+    }
+    h2 {
       color: #27dee7;
     }
     .glitch-btn {

@@ -5,28 +5,28 @@
  margin: 0 0 0 0;
  padding: 0 0 0 0;
 }
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: url('bckgrnd.jpg') no-repeat center center fixed;
-  background-size: cover;
-  color: #333;
-}
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: url('bckgrnd.jpg') no-repeat center center fixed;
+      background-size: cover;
+      color: #333;
+    }
     img {
-      width: 80px; /* Zvětšené logo */
+      width: 80px; 
       height: auto;
-      vertical-align: middle; /* Zarovnání na střed */
-      margin-right: 15px; /* Mezera mezi logem a textem */
+      vertical-align: middle;
+      margin-right: 15px; 
       transition: transform 0.3s ease;
     }
     header {
       background-color: #222;
       color: #fff;
       padding: 1rem 2rem;
-      display: flex; /* Flexbox pro lepší kontrolu */
-      align-items: center; /* Vertikální vycentrování */
-      justify-content: space-between; /* Logo vlevo, text na střed */
-      gap: 15px; /* Mezera mezi prvky */
+      display: flex; 
+      align-items: center; 
+      justify-content: space-between; 
+      gap: 15px; 
       position: fixed;
       top: 0;
       left: 0;
@@ -35,17 +35,22 @@ body {
       transition: all 0.3s ease;
       box-shadow: 0 2px 10px rgba(0, 255, 153, 0.2);
     }
+    header img {
+      width: 80px;
+      height: auto;
+      vertical-align: middle;
+      margin-right: 15px;
+      transition: transform 0.3s ease;
+      
+      animation: rotate-slow 15s linear infinite;
+    }
     
-    /* Animace hlavičky při scrollování */
+   
     header.scrolled {
       background-color: rgba(34, 34, 34, 0.95);
       backdrop-filter: blur(10px);
       transform: translateY(-5px);
       box-shadow: 0 5px 20px rgba(0, 255, 153, 0.4);
-    }
-    
-    header.scrolled img {
-      transform: rotate(360deg) scale(1.1);
     }
     
     header.scrolled .header-text h1 {
@@ -55,7 +60,7 @@ body {
     
     .header-text {
       text-align: center;
-      flex-grow: 1; /* Text zabere zbytek místa */
+      flex-grow: 1; 
       transition: all 0.3s ease;
     }
     
@@ -63,6 +68,30 @@ body {
       transition: all 0.3s ease;
     }
     
+    @keyframes pulse-green {
+      0% {
+        color: #fff;
+        text-shadow: 0 0 0px #00ff99;
+        }
+      50% {
+        color: #00ff99;
+        text-shadow: 0 0 10px #00ff99;
+        }
+      100% {
+        color: #fff;
+        text-shadow: 0 0 0px #00ff99;
+        }
+    }
+
+    nav a[href="dan/dan.html"] {
+      animation: pulse-green 2s ease-in-out infinite;
+    }
+
+    nav a[href="dan/dan.html"]:hover {
+      animation: none;
+      color: #00ff99;
+      text-shadow: 0 0 15px #00ff99;
+      }
     nav {
       background-color: #444;
       display: flex;
@@ -70,7 +99,7 @@ body {
       gap: 2rem;
       padding: 0.5rem 0;
       position: fixed;
-      top: 110px; /* Pod hlavičkou */
+      top: 110px;
       left: 0;
       right: 0;
       z-index: 1000;
@@ -97,7 +126,7 @@ body {
     
     .container {
       max-width: 50%;
-      margin: 200px auto 2rem auto; /* Přidáme místo pro fixed header a nav */
+      margin: 200px auto 2rem auto; 
       padding: 0 1rem;
     }
     h1, h2 {
@@ -130,6 +159,14 @@ body {
             80% { transform: translate(2px, -2px); }
             100% { transform: translate(0); }
         }
+        @keyframes rotate-slow {
+          from {
+            transform: rotate(0deg);
+          }
+          to {
+            transform: rotate(360deg);
+          }
+        }
     .product, .testimonial, .contact {
       background-color: rgba(0, 0, 0, 0.75);
       font-family: 'Courier New', monospace;
@@ -149,9 +186,9 @@ body {
     font-size: 1rem;
     border-radius: 4px;
     border: 1px solid #504b4b;
-    background-color: #222; /* tmavé šedé pozadí */
-    color: #eee; /* světlý text */
-  }
+    background-color: #222; 
+    color: #eee; 
+    }
     button {
       padding: 0.75rem;
       background-color: #222;
@@ -175,8 +212,8 @@ body {
     
     .miku-gif {
       position: fixed;
-      top: 25%; /* Pod navigací */
-      right: 20px; /* Vpravo od okraje stránky */
+      top: 25%; 
+      right: 20px; 
       width: 20%;
       height: auto;
       border-radius: 2%;
@@ -194,8 +231,8 @@ body {
 
     .hack-gif {
       position: fixed;
-      top: 53%; /* Pod navigací */
-      right: 20px; /* Vpravo od okraje stránky */
+      top: 53%; 
+      right: 20px; 
       width: 20%;
       height: auto;
       border-radius: 2%;
@@ -212,8 +249,8 @@ body {
     }
     .buy-gif {
       position: fixed;
-      top: 23%; /* Pod navigací */
-      left: 20px; /* Vlevo od okraje stránky */
+      top: 23%; 
+      left: 20px; 
       width: 20%;
       height: auto;
       border-radius: 2%;
@@ -229,7 +266,7 @@ body {
       border: none;
     }
 
-    /* Parallax efekt pro GIFy */
+    /* efekt pro GIFy */
     .miku-gif.scrolled {
       transform: translateY(10px) scale(1.05);
       box-shadow: 0 0 25px rgba(0, 255, 153, 0.5);

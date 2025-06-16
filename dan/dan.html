@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CyberCode Solutions - IT Software Development</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Orbitron', monospace;
+            background: #0a0a0a;
+            color: #00ff41;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+        
+        /* Matrix rain animation */
+        .matrix-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0.1;
+        }
+        
+        .matrix-column {
+            position: absolute;
+            top: -100%;
+            font-size: 20px;
+            line-height: 1;
+            animation: matrix-rain linear infinite;
+            color: #00ff41;
+            font-family: 'Courier New', monospace;
+        }
+        
+        @keyframes matrix-rain {
+            to {
+                transform: translateY(100vh);
+            }
+        }
+        
+        /* Header */
+        header {
+            background: rgba(0, 0, 0, 0.9);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 2px solid #00ff41;
+            backdrop-filter: blur(10px);
+        }
+        
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 900;
+            text-shadow: 0 0 10px #00ff41;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+        
+        .nav-links a {
+            color: #00ff41;
+            text-decoration: none;
+            font-weight: 400;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .nav-links a:hover {
+            text-shadow: 0 0 5px #00ff41;
+            transform: scale(1.1);
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #00ff41;
+            transition: width 0.3s ease;
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        /* Main content */
+        main {
+            margin-top: 80px;
+        }
+        
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: radial-gradient(circle at center, rgba(0, 255, 65, 0.1) 0%, transparent 70%);
+        }
+        
+        .hero-content h1 {
+            font-size: 3.5rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 20px #00ff41;
+            animation: glow 3s ease-in-out infinite alternate;
+        }
+        
+        @keyframes glow {
+            from { text-shadow: 0 0 20px #00ff41; }
+            to { text-shadow: 0 0 30px #00ff41, 0 0 40px #00ff41; }
+        }
+        
+        .hero-content p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.8;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: transparent;
+            border: 2px solid #00ff41;
+            color: #00ff41;
+            text-decoration: none;
+            font-family: 'Orbitron', monospace;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 255, 65, 0.3), transparent);
+            transition: left 0.5s ease;
+        }
+        
+        .cta-button:hover::before {
+            left: 100%;
+        }
+        
+        .cta-button:hover {
+            background: rgba(0, 255, 65, 0.1);
+            box-shadow: 0 0 20px rgba(0, 255, 65, 0.5);
+            transform: translateY(-2px);
+        }
+        
+        /* Sections */
+        section {
+            padding: 4rem 0;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-left: 2rem;
+            padding-right: 2rem;
+        }
+        
+        h2 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            text-shadow: 0 0 10px #00ff41;
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .service-card {
+            background: rgba(0, 255, 65, 0.05);
+            border: 1px solid #00ff41;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(0, 255, 65, 0.1) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .service-card:hover::before {
+            opacity: 1;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 255, 65, 0.3);
+            border-color: #00ff41;
+        }
+        
+        .service-card h3 {
+            color: #00ff41;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .service-card p {
+            opacity: 0.8;
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Contact */
+        .contact {
+            background: rgba(0, 255, 65, 0.03);
+            border-top: 1px solid #00ff41;
+            border-bottom: 1px solid #00ff41;
+        }
+        
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            text-align: center;
+        }
+        
+        .contact-item {
+            padding: 1rem;
+        }
+        
+        .contact-item h3 {
+            color: #00ff41;
+            margin-bottom: 0.5rem;
+        }
+        
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            border-top: 1px solid #00ff41;
+            background: rgba(0, 0, 0, 0.8);
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero-content p {
+                font-size: 1rem;
+            }
+            
+            h2 {
+                font-size: 2rem;
+            }
+        }
+        
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #0a0a0a;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: #00ff41;
+            border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: #00cc33;
+        }
+    </style>
+</head>
+<body>
+    <!-- Matrix rain background -->
+    <div class="matrix-bg" id="matrix-bg"></div>
+    
+    <header>
+        <nav>
+            <div class="logo">CyberCode Solutions</div>
+            <ul class="nav-links">
+                <li><a href="#home">Domů</a></li>
+                <li><a href="#services">Služby</a></li>
+                <li><a href="#about">O nás</a></li>
+                <li><a href="#contact">Kontakt</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <main>
+        <section id="home" class="hero">
+            <div class="hero-content">
+                <h1>Vstupte do budoucnosti</h1>
+                <p>Vyvíjíme software, který mění svět. Naše kódování je naše umění.</p>
+                <a href="#services" class="cta-button">PROZKOUMEJTE MATRIX</a>
+            </div>
+        </section>
+        
+        <section id="services">
+            <h2>Naše služby</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <h3>Webové aplikace</h3>
+                    <p>Vytváříme moderní, responzivní webové aplikace s nejnovějšími technologiemi. React, Angular, Vue.js - ovládáme je všechny.</p>
+                </div>
+                <div class="service-card">
+                    <h3>Mobilní aplikace</h3>
+                    <p>Nativní i cross-platform aplikace pro Android a iOS. Flutter, React Native, nebo čistě nativní vývoj.</p>
+                </div>
+                <div class="service-card">
+                    <h3>Systémové řešení</h3>
+                    <p>Komplexní podnikové systémy na míru. ERP, CRM, automatizace procesů - digitalizujeme vaše podnikání.</p>
+                </div>
+                <div class="service-card">
+                    <h3>Cloud & DevOps</h3>
+                    <p>Migrace do cloudu, CI/CD pipelines, kontejnerizace. AWS, Azure, Google Cloud - jsme certifikovaní partneři.</p>
+                </div>
+                <div class="service-card">
+                    <h3>AI & Machine Learning</h3>
+                    <p>Implementace umělé inteligence do vašich procesů. Prediktivní analýzy, automatizace, chatboty.</p>
+                </div>
+                <div class="service-card">
+                    <h3>Kybernetická bezpečnost</h3>
+                    <p>Ochraňte své data před hackery. Penetrační testování, audit bezpečnosti, implementace zabezpečení.</p>
+                </div>
+            </div>
+        </section>
+        
+        <section id="about">
+            <h2>O CyberCode Solutions</h2>
+            <p style="text-align: center; font-size: 1.1rem; max-width: 800px; margin: 0 auto; opacity: 0.9;">
+                Jsme tým zkušených vývojářů a IT specialistů, kteří žijí v digitálním světě. 
+                Naše vášeň pro technologie a inovace nás vede k vytváření software, který překračuje hranice možného. 
+                V CyberCode Solutions nevytváříme jen kód - vytváříme budoucnost.
+            </p>
+        </section>
+        
+        <section id="contact" class="contact">
+            <h2>Připojte se k nám</h2>
+            <div class="contact-info">
+                <div class="contact-item">
+                    <h3>Email</h3>
+                    <p>info@cybercode.cz</p>
+                </div>
+                <div class="contact-item">
+                    <h3>Telefon</h3>
+                    <p>+420 777 123 456</p>
+                </div>
+                <div class="contact-item">
+                    <h3>Adresa</h3>
+                    <p>Cyber District 1337<br>Praha, Česká republika</p>
+                </div>
+                <div class="contact-item">
+                    <h3>GitHub</h3>
+                    <p>github.com/cybercode-solutions</p>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <footer>
+        <p>&copy; 2025 CyberCode Solutions. Všechna práva vyhrazena. | Kódování je naše umění.</p>
+    </footer>
+    
+    <script>
+        // Matrix rain effect
+        function createMatrixRain() {
+            const matrixBg = document.getElementById('matrix-bg');
+            const characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()_+-=[]{}|;:,.<>?';
+            
+            function createColumn() {
+                const column = document.createElement('div');
+                column.className = 'matrix-column';
+                column.style.left = Math.random() * 100 + '%';
+                column.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                column.style.animationDelay = Math.random() * 2 + 's';
+                
+                let text = '';
+                for (let i = 0; i < 20; i++) {
+                    text += characters.charAt(Math.floor(Math.random() * characters.length)) + '<br>';
+                }
+                column.innerHTML = text;
+                
+                matrixBg.appendChild(column);
+                
+                // Remove column after animation
+                setTimeout(() => {
+                    if (column.parentNode) {
+                        column.parentNode.removeChild(column);
+                    }
+                }, 5000);
+            }
+            
+            // Create initial columns
+            for (let i = 0; i < 20; i++) {
+                setTimeout(createColumn, i * 100);
+            }
+            
+            // Continue creating columns
+            setInterval(createColumn, 200);
+        }
+        
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+        
+        // Start matrix rain effect
+        createMatrixRain();
+        
+        // Add typing effect to hero title
+        function typeWriter(element, text, speed = 100) {
+            let i = 0;
+            element.innerHTML = '';
+            function type() {
+                if (i < text.length) {
+                    element.innerHTML += text.charAt(i);
+                    i++;
+                    setTimeout(type, speed);
+                }
+            }
+            type();
+        }
+        
+        // Start typing effect when page loads
+        window.addEventListener('load', () => {
+            const heroTitle = document.querySelector('.hero-content h1');
+            const originalText = heroTitle.textContent;
+            typeWriter(heroTitle, originalText, 100);
+        });
+    </script>
+</body>
+</html>

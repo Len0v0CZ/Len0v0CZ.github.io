@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="../ikona.png">
     <title>CyberCode - IT Software Development</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap');
@@ -259,6 +260,111 @@
             border-bottom: 1px solid #00ff41;
         }
         
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto 3rem auto;
+            background: rgba(0, 255, 65, 0.05);
+            border: 1px solid #00ff41;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .contact-form::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(0, 255, 65, 0.1) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+        
+        .contact-form:hover::before {
+            opacity: 1;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .form-group label {
+            display: block;
+            color: #00ff41;
+            font-family: 'Orbitron', monospace;
+            font-weight: 400;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 0 5px rgba(0, 255, 65, 0.5);
+        }
+        
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid #00ff41;
+            color: #00ff41;
+            padding: 0.75rem;
+            font-family: 'Orbitron', monospace;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            outline: none;
+        }
+        
+        .form-group input:focus,
+        .form-group textarea:focus {
+            border-color: #00ff41;
+            box-shadow: 0 0 10px rgba(0, 255, 65, 0.3);
+            background: rgba(0, 255, 65, 0.05);
+        }
+        
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+        
+        .form-button {
+            width: 100%;
+            padding: 1rem 2rem;
+            background: transparent;
+            border: 2px solid #00ff41;
+            color: #00ff41;
+            font-family: 'Orbitron', monospace;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .form-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 255, 65, 0.3), transparent);
+            transition: left 0.5s ease;
+            z-index: -1;
+        }
+        
+        .form-button:hover::before {
+            left: 100%;
+        }
+        
+        .form-button:hover {
+            background: rgba(0, 255, 65, 0.1);
+            box-shadow: 0 0 20px rgba(0, 255, 65, 0.5);
+            transform: translateY(-2px);
+        }
+        
         .contact-info {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -267,12 +373,49 @@
         }
         
         .contact-item {
-            padding: 1rem;
+            padding: 1.5rem;
+            background: rgba(0, 255, 65, 0.05);
+            border: 1px solid #00ff41;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .contact-item::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(0, 255, 65, 0.1) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .contact-item:hover::before {
+            opacity: 1;
+        }
+        
+        .contact-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 20px rgba(0, 255, 65, 0.2);
+            border-color: #00ff41;
         }
         
         .contact-item h3 {
             color: #00ff41;
             margin-bottom: 0.5rem;
+            font-size: 1.2rem;
+            text-shadow: 0 0 5px rgba(0, 255, 65, 0.5);
+            position: relative;
+            z-index: 1;
+        }
+        
+        .contact-item p {
+            position: relative;
+            z-index: 1;
+            opacity: 0.9;
         }
         
         /* Footer */
@@ -388,6 +531,19 @@
         
         <section id="contact" class="contact">
             <h2>Připojte se k nám</h2>
+            <form id="kontakt-form" action="#" method="post" class="contact-form">
+                <div class="form-group">
+                    <label for="email">Váš e-mail:</label>
+                    <input type="email" id="email" name="user_email" required />
+                </div>
+
+                <div class="form-group">
+                    <label for="zprava">Zpráva:</label>
+                    <textarea id="zprava" name="zprava" rows="5" required></textarea>
+                </div>
+
+                <button type="submit" class="form-button">ODESLAT</button>
+            </form>
             <div class="contact-info">
                 <div class="contact-item">
                     <h3>Email</h3>
@@ -489,5 +645,32 @@
             typeWriter(heroTitle, originalText, 100);
         });
     </script>
+      <!-- EmailJS knihovna -->
+  <script type="text/javascript" src="https://cdn.emailjs.com/dist/email.min.js"></script>
+  <script type="text/javascript">
+    // Inicializace EmailJS s tvým Public Key (User ID)
+    (function(){
+      emailjs.init("XIvjCVcC7hQUGHAMt"); // nahraď svým veřejným klíčem z EmailJS
+    })();
+
+    // Spuštění po odeslání formuláře
+    window.addEventListener('DOMContentLoaded', function() {
+      const form = document.getElementById("kontakt-form");
+
+      form.addEventListener("submit", function(e) {
+        e.preventDefault();
+
+        emailjs.sendForm("service_06p42v7", "templata_odpovez_", this)
+          .then(function(response) {
+            console.log("Email byl úspěšně odeslán!", response.status, response.text);
+            alert("Díky! Email byl odeslán.");
+            form.reset(); // Vymaže formulář po odeslání
+          }, function(error) {
+            console.error("Nastala chyba při odesílání:", error);
+            alert("Oops! Něco se pokazilo. Zkus to znovu.");
+          });
+      });
+    });
+  </script>
 </body>
 </html>

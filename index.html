@@ -208,7 +208,7 @@
     <!-- Přihlášení -->
     <div id="loginBox" class="login-box">
         <h1>Edupage Rozvrh</h1>
-        <input type="text" id="subdomain" placeholder="Subdoména (např. gymkh)">
+        <h3 style="text-align: center; color: #7f8c8d; margin-bottom: 20px;">SSPBRNO</h3>
         <input type="text" id="username" placeholder="Uživatelské jméno">
         <input type="password" id="password" placeholder="Heslo">
         <button onclick="login()">Přihlásit se</button>
@@ -260,11 +260,11 @@
         };
 
         function login() {
-            const subdomain = document.getElementById('subdomain').value;
+            const subdomain = 'sspbrno';
             const username = document.getElementById('username').value;
             const password = document.getElementById('password').value;
 
-            if (!subdomain || !username || !password) {
+            if (!username || !password) {
                 alert('Vyplň všechna pole!');
                 return;
             }
@@ -339,7 +339,6 @@
         function logout() {
             document.getElementById('loginBox').classList.remove('hidden');
             document.getElementById('content').classList.add('hidden');
-            document.getElementById('subdomain').value = '';
             document.getElementById('username').value = '';
             document.getElementById('password').value = '';
         }

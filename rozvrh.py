@@ -103,7 +103,16 @@ def index():
 def get_rozvrh():
     rozvrh_obj = vytvor_rozvrh_objekt(rozvrh, ucebny, ucitele)
     return jsonify(rozvrh_obj)
-
+@app.route('/ruda')
+def ruda():
+    """psst"""
+    try:
+        html_path = os.path.join(os.path.dirname(__file__), 'ruda.html')
+        with open(html_path, 'r', encoding='utf-8') as f:
+            html_content = f.read()
+        return html_content
+    except FileNotFoundError:
+        return "<h1>Chyba. ztratils soubor retarde</h1>"
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
     app.run(host='0.0.0.0', port=port)

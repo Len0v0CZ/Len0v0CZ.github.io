@@ -26,17 +26,17 @@ def nacti_rozvrh(nazev_rozvrhu):
         with open(file_path, "r", encoding="utf-8") as file:
             lines = file.readlines()
 
-            # načítání hodin
+            # hodiny
             for line in lines[:5]: 
                 den = line.split()
                 rozvrh.append(den)
 
-            # načítání učeben
+            # Ux
             for line in lines[5:10]:
                 den = line.split()
                 ucebny.append(den)
                 
-            # načítání učitelů
+            # ucitel
             for line in lines[10:]:
                 den = line.split()
                 ucitele.append(den)
@@ -53,12 +53,12 @@ def vytvor_rozvrh_objekt(rozvrh, ucebny, ucitele):
         "8:00-8:45", "8:55-9:40", "10:00-10:45", "10:55-11:40",
         "11:50-12:35", "12:45-13:30", "13:40-14:25", "14:35-15:20"
     ]
-    
-    # Slovník pro dny v týdnu (1=pondělí, 5=pátek)
+
+    # dny
     rozvrh_obj = {}
     
     for den_index in range(len(rozvrh)):
-        den_cislo = den_index + 1  # 0->1 (pondělí), 1->2 (úterý), atd.
+        den_cislo = den_index + 1  
         lessons = []
         
         for hodina_index in range(len(rozvrh[den_index])):
@@ -66,7 +66,7 @@ def vytvor_rozvrh_objekt(rozvrh, ucebny, ucitele):
             room = ucebny[den_index][hodina_index] if den_index < len(ucebny) and hodina_index < len(ucebny[den_index]) else "-"
             teacher = ucitele[den_index][hodina_index] if den_index < len(ucitele) and hodina_index < len(ucitele[den_index]) else "-"
             
-            # Přeskočit prázdné hodiny
+            # Prazdne = kaput
             if subject != "-" and subject.strip():
                 lessons.append({
                     "number": hodina_index + 1,
@@ -81,10 +81,11 @@ def vytvor_rozvrh_objekt(rozvrh, ucebny, ucitele):
     return rozvrh_obj
 
 
-# Načtení rozvrhu při startu
+# Naciani rozvrh
 rozvrh, ucebny, ucitele = nacti_rozvrh("rozvrh.txt")
 
 
+# delame Server
 @app.route('/')
 def index():
     """HTML"""
@@ -97,7 +98,6 @@ def index():
         return """
         <h1>Chyba. ztratils soubor retarde</h1>
         """.format(os.path.dirname(__file__))
-
 
 @app.route('/api/rozvrh')
 def get_rozvrh():

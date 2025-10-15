@@ -19,7 +19,7 @@
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
         }
 
@@ -60,11 +60,22 @@
             margin-top: 5px;
         }
 
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 200px;
+            gap: 20px;
+        }
+
+        .left-column {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
         .lessons-container {
             background: #fff9e6;
             padding: 30px;
             border-radius: 15px;
-            margin-bottom: 20px;
         }
 
         .lessons-grid {
@@ -184,6 +195,64 @@
             color: #7f8c8d;
         }
 
+        .day-selector {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .day-selector h3 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .day-button {
+            background: #ecf0f1;
+            border: 2px solid #bdc3c7;
+            border-radius: 10px;
+            padding: 15px;
+            font-size: 14px;
+            font-weight: bold;
+            color: #2c3e50;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: center;
+        }
+
+        .day-button:hover {
+            background: #d5dbdb;
+            transform: scale(1.02);
+        }
+
+        .day-button.active {
+            background: #3498db;
+            color: white;
+            border-color: #2980b9;
+        }
+
+        .day-button.today {
+            border-color: #27ae60;
+            border-width: 3px;
+        }
+
+        @media (max-width: 968px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+            .day-selector {
+                flex-direction: row;
+                flex-wrap: wrap;
+            }
+            .day-button {
+                flex: 1;
+                min-width: 100px;
+            }
+        }
+
         @media (max-width: 768px) {
             .current-next {
                 grid-template-columns: 1fr;
@@ -212,35 +281,48 @@
             </div>
         </div>
 
-        <div class="lessons-container">
-            <h2>Hodiny</h2>
-            <div class="lessons-grid" id="lessonsGrid">
-                <div class="loading">Načítání rozvrhu...</div>
-            </div>
-        </div>
+        <div class="main-content">
+            <div class="left-column">
+                <div class="lessons-container">
+                    <h2>Hodiny</h2>
+                    <div class="lessons-grid" id="lessonsGrid">
+                        <div class="loading">Načítání rozvrhu...</div>
+                    </div>
+                </div>
 
-        <div class="current-next">
-            <div class="current-box">
-                <h2>Aktuální hodina</h2>
-                <div id="currentLesson">
-                    <div class="loading">Načítání...</div>
+                <div class="current-next">
+                    <div class="current-box">
+                        <h2>Aktuální hodina</h2>
+                        <div id="currentLesson">
+                            <div class="loading">Načítání...</div>
+                        </div>
+                    </div>
+
+                    <div class="next-box">
+                        <h2>Příští hodina</h2>
+                        <div id="nextLesson">
+                            <div class="loading">Načítání...</div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <div class="next-box">
-                <h2>Příští hodina</h2>
-                <div id="nextLesson">
-                    <div class="loading">Načítání...</div>
-                </div>
+            <div class="day-selector">
+                <h3>Vyberte den</h3>
+                <button class="day-button" data-day="1">Pondělí</button>
+                <button class="day-button" data-day="2">Úterý</button>
+                <button class="day-button" data-day="3">Středa</button>
+                <button class="day-button" data-day="4">Čtvrtek</button>
+                <button class="day-button" data-day="5">Pátek</button>
             </div>
         </div>
     </div>
 
     <script>
-        // Globální proměnná pro rozvrh načtený z API
         let weekSchedule = {};
+        let selectedDay = new Date().getDay(); // dneska
 
-        // Načtení rozvrhu z API
+        // API
         async function loadSchedule() {
             try {
                 const response = await fetch('/api/rozvrh');
@@ -249,6 +331,7 @@
                 }
                 weekSchedule = await response.json();
                 console.log('Rozvrh načten:', weekSchedule);
+                initDayButtons();
                 showContent();
             } catch (error) {
                 console.error('Chyba:', error);
@@ -259,6 +342,39 @@
                 document.getElementById('nextLesson').innerHTML = 
                     '<p class="no-lesson">Chyba při načítání</p>';
             }
+        }
+
+        function initDayButtons() {
+            const buttons = document.querySelectorAll('.day-button');
+            const today = new Date().getDay();
+            
+            buttons.forEach(button => {
+                const day = parseInt(button.dataset.day);
+                
+                if (day === today) {
+                    button.classList.add('today');
+                }
+                
+                button.addEventListener('click', () => {
+                    selectedDay = day;
+                    updateActiveButton();
+                    showContent();
+                });
+            });
+            
+            updateActiveButton();
+        }
+
+        function updateActiveButton() {
+            const buttons = document.querySelectorAll('.day-button');
+            buttons.forEach(button => {
+                const day = parseInt(button.dataset.day);
+                if (day === selectedDay) {
+                    button.classList.add('active');
+                } else {
+                    button.classList.remove('active');
+                }
+            });
         }
 
         function parseTime(timeStr) {
@@ -306,32 +422,46 @@
 
         function showContent() {
             const now = new Date();
-            const dayOfWeek = now.getDay();
+            const realDayOfWeek = now.getDay();
             
+            const dayNames = ['neděle', 'pondělí', 'úterý', 'středa', 'čtvrtek', 'pátek', 'sobota'];
+            const selectedDayName = dayNames[selectedDay];
+            
+            // vyber si
             const today = now.toLocaleDateString('cs-CZ', { 
-                weekday: 'long', 
                 year: 'numeric', 
                 month: 'long', 
                 day: 'numeric' 
             });
-            document.getElementById('todayDate').textContent = today;
+            
+            if (selectedDay === realDayOfWeek) {
+                document.getElementById('todayDate').textContent = `${selectedDayName} - dnes`;
+            } else {
+                document.getElementById('todayDate').textContent = `${selectedDayName.charAt(0).toUpperCase() + selectedDayName.slice(1)}`;
+            }
 
-            // Získání rozvrhu pro aktuální den
-            const lessons = weekSchedule[dayOfWeek] || [];
+            // denni rozvrh
+            const lessons = weekSchedule[selectedDay] || [];
 
             if (lessons.length === 0) {
                 document.getElementById('lessonsGrid').innerHTML = 
-                    '<p class="no-lesson">Dnes nejsou žádné hodiny</p>';
+                    '<p class="no-lesson">Tento den nejsou žádné hodiny</p>';
                 document.getElementById('currentLesson').innerHTML = 
                     '<p class="no-lesson">Žádná hodina</p>';
                 document.getElementById('nextLesson').innerHTML = 
                     '<p class="no-lesson">Žádná hodina</p>';
                 return;
             }
+            let currentIndex = -1;
+            let nextIndex = -1;
+            
+            if (selectedDay === realDayOfWeek) {
+                const result = getCurrentAndNextLesson(lessons);
+                currentIndex = result.currentIndex;
+                nextIndex = result.nextIndex;
+            }
 
-            const { currentIndex, nextIndex } = getCurrentAndNextLesson(lessons);
-
-            // Zobrazení všech hodin
+            // Všechny hodiny
             const grid = document.getElementById('lessonsGrid');
             grid.innerHTML = '';
             lessons.forEach((lesson, index) => {
@@ -348,8 +478,8 @@
                 grid.appendChild(box);
             });
 
-            // Aktuální hodina
-            if (currentIndex >= 0) {
+            // RN
+            if (selectedDay === realDayOfWeek && currentIndex >= 0) {
                 const current = lessons[currentIndex];
                 document.getElementById('currentLesson').innerHTML = `
                     <div class="big-number">${current.number}</div>
@@ -363,8 +493,8 @@
                     '<p class="no-lesson">Žádná probíhající hodina</p>';
             }
 
-            // Příští hodina
-            if (nextIndex >= 0) {
+            // next
+            if (selectedDay === realDayOfWeek && nextIndex >= 0) {
                 const next = lessons[nextIndex];
                 document.getElementById('nextLesson').innerHTML = `
                     <div class="big-number">${next.number}</div>
@@ -379,7 +509,6 @@
             }
         }
 
-        // Inicializace
         updateClock();
         loadSchedule();
         

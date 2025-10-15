@@ -96,7 +96,7 @@
             cursor: pointer;
             transition: transform 0.2s;
         }
-
+        
         .lesson-box:hover {
             transform: scale(1.05);
         }
@@ -322,7 +322,7 @@
 
     <script>
         let weekSchedule = {};
-        let selectedDay = new Date().getDay(); // Aktuální den jako výchozí
+        let selectedDay = new Date().getDay();
 
         // API
         async function loadSchedule() {
@@ -353,12 +353,11 @@
             buttons.forEach(button => {
                 const day = parseInt(button.dataset.day);
                 
-                // Označení dnešního dne
+                // dnesek
                 if (day === today) {
                     button.classList.add('today');
                 }
                 
-                // Event listener pro kliknutí
                 button.addEventListener('click', () => {
                     selectedDay = day;
                     updateActiveButton();
@@ -431,7 +430,6 @@
             const dayNames = ['neděle', 'pondělí', 'úterý', 'středa', 'čtvrtek', 'pátek', 'sobota'];
             const selectedDayName = dayNames[selectedDay];
             
-            // Zobrazení vybraného dne
             const today = now.toLocaleDateString('cs-CZ', { 
                 year: 'numeric', 
                 month: 'long', 
@@ -444,7 +442,7 @@
                 document.getElementById('todayDate').textContent = `${selectedDayName.charAt(0).toUpperCase() + selectedDayName.slice(1)}`;
             }
 
-            // Bereme rozvrh pro vybraný den
+            // ktery den?
             const lessons = weekSchedule[selectedDay] || [];
 
             if (lessons.length === 0) {
@@ -457,7 +455,6 @@
                 return;
             }
 
-            // Pokud je vybraný den aktuální den, zjistíme aktuální a další hodinu
             let currentIndex = -1;
             let nextIndex = -1;
             
@@ -467,7 +464,7 @@
                 nextIndex = result.nextIndex;
             }
 
-            // Všechny hodiny
+            // fsicko
             const grid = document.getElementById('lessonsGrid');
             grid.innerHTML = '';
             lessons.forEach((lesson, index) => {
@@ -484,7 +481,7 @@
                 grid.appendChild(box);
             });
 
-            // Aktuální hodina (pouze pokud je vybraný dnešní den)
+            // RN
             if (selectedDay === realDayOfWeek && currentIndex >= 0) {
                 const current = lessons[currentIndex];
                 document.getElementById('currentLesson').innerHTML = `
@@ -499,7 +496,7 @@
                     '<p class="no-lesson">Žádná probíhající hodina</p>';
             }
 
-            // Další hodina (pouze pokud je vybraný dnešní den)
+            // NEXT
             if (selectedDay === realDayOfWeek && nextIndex >= 0) {
                 const next = lessons[nextIndex];
                 document.getElementById('nextLesson').innerHTML = `
